@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import useTitleInput from './hooks/useTitleInput';
 import Toggle from './Toggle';
 
 import './App.css';
@@ -32,16 +33,7 @@ const App = () => {
   )
 }
 
-function useTitleInput(initalValue){
-  const [value, setValue] = useState(initalValue);
 
-  useEffect(() => {
-    document.title = value;
-
-  });
-  return [value, setValue]
-
-}
 
 // const formSubmit = (value, setValue) => {
 //   console.log('email sent to ' + value + "!");
