@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef} from 'react';
 import useTitleInput from './hooks/useTitleInput';
 import Toggle from './Toggle';
 
@@ -7,11 +7,14 @@ import './App.css';
 const App = () => {
   
  const [name, setName] = useTitleInput('');
+ const ref = useRef();
+
+ console.log(ref.current);
   
   
   return (
-    <div className="main-wrapper">
-      <h1>Level Up Dishes</h1>
+    <div className="main-wrapper" ref={ref}>
+      <h1 onClick={() => console.log(ref.current.classList.add('new-fake-class'))}>Level Up Dishes</h1>
       <Toggle />
       <h3>{name}</h3>
       
@@ -33,6 +36,19 @@ const App = () => {
   )
 }
 
+/* 
+
+const ref = useRef();
+
+initial render
+console.log(ref.current) undefined 
+
+renders there after 
+console.log(ref.current) produces DOM along with it children!!
+
+
+
+*/
 
 
 // const formSubmit = (value, setValue) => {
