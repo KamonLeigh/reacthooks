@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect, useDebugValue} from 'react';
 
 function useTitleInput(initalValue) {
     const [value, setValue] = useState(initalValue);
@@ -7,6 +7,8 @@ function useTitleInput(initalValue) {
         document.title = value;
 
     });
+    useDebugValue(value.length > 0 ?  "Full" : "Empty");
+
     return [value, setValue]
 
 }
