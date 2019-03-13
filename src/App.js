@@ -1,7 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo} from 'react';
 import useTitleInput from './hooks/useTitleInput';
 import Toggle from './Toggle';
-import Counter from './Counter'
 import './App.css';
 
 
@@ -10,14 +9,22 @@ const App = () => {
  const [name, setName] = useTitleInput('');
  const ref = useRef();
 
- console.log(ref.current);
+ const reverseWord = word => {
+   console.log('function called');
+   return word.split("").reverse().join("");
+ }
+
+ const title = 'Level Up Dishes'
+
+ const TitleReversed = useMemo(() => reverseWord(title), [title]);
+
   
   
   return (
     <div className="main-wrapper" ref={ref}>
-      <h1 onClick={() => console.log(ref.current.classList.add('new-fake-class'))}>Level Up Dishes</h1>
+      <h1 onClick={() => console.log(ref.current.classList.add('new-fake-class'))}>{ TitleReversed }</h1>
       <Toggle />
-      <Counter/>
+    
       <h3>{name}</h3>
       
       <form onSubmit={
