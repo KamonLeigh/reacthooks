@@ -1,9 +1,8 @@
-import React, { useRef, createContext} from 'react';
+import React, { useRef } from 'react';
 import useTitleInput from './hooks/useTitleInput';
 import Toggle from './Toggle';
+import Counter from './Counter'
 import './App.css';
-
-export const UserContext = createContext();
 
 
 const App = () => {
@@ -15,14 +14,10 @@ const App = () => {
   
   
   return (
-  <UserContext.Provider
-    value = {{
-      user: false
-    }}
-    >
     <div className="main-wrapper" ref={ref}>
       <h1 onClick={() => console.log(ref.current.classList.add('new-fake-class'))}>Level Up Dishes</h1>
       <Toggle />
+      <Counter/>
       <h3>{name}</h3>
       
       <form onSubmit={
@@ -40,7 +35,6 @@ const App = () => {
       </form>
       
     </div>
-  </UserContext.Provider>
   )
 }
 
