@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import  useAbortableFetch  from 'use-abortable-fetch';
+import { useSpring, animated} from 'react-spring';
+//import  useAbortableFetch  from 'use-abortable-fetch';
 import useTitleInput from './hooks/useTitleInput';
 import Toggle from './Toggle';
 import './App.css';
@@ -9,28 +10,33 @@ const App = () => {
   
  const [name, setName] = useTitleInput('');
  const ref = useRef();
- //const [ dishes, setDishes] = useState([]);
- const [data, loading] = useAbortableFetch('https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes');
+ const [ dishes, setDishes] = useState([]);
+ //const [data, loading] = useAbortableFetch('https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes');
 
 
 
-  // const fetchDishes = async () => {
-  //   const res = await fetch('https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes');
-  //   const data = await res.json();
+  const fetchDishes = async () => {
+    const res = await fetch('https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes');
+    const data = await res.json();
 
-  //   setDishes(data);
-  // }
-  // // useEffect(() => {
-  //     fetchDishes()
-  // }, [])
+    setDishes(data);
+  }
+   useEffect(() => {
+      fetchDishes()
+  }, [])
 
+  const props = useSpring({ opacity: 1, from :{ opacity : 0}});
+
+  console.log(props);
 
   const title = 'Level Up Dishes'
   
-  if(!data) return null;
+  //if(!data) return null;
   return (
     <div className="main-wrapper" ref={ref}>
-      <h1 onClick={() => console.log(ref.current.classList.add('new-fake-class'))}>{ title }</h1>
+      <animated.h1 style={props} onClick={() => console.log(ref.current.classList.add('new-fake-class'))}>
+        { title }
+      </animated.h1>
       <Toggle />
     
       <h3>{name}</h3>
@@ -48,7 +54,7 @@ const App = () => {
         />
       <button>Submit</button>
       </form>
-      {data.map(dish => (
+      {dishes && dishes.map(dish => (
 
         <article className="dish-card dish-card--withImage">
           <h3>{dish.name}</h3>
